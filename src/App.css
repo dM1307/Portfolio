@@ -1,0 +1,232 @@
+/* ===========================================================
+   🎥 CINEMATIC DEVELOPER PORTFOLIO THEME
+   Real 3D Aesthetic + Mouse Parallax Interaction
+   =========================================================== */
+
+   :root {
+    --bg-primary: #eaf0ec;
+    --bg-secondary: #d7e2da;
+    --text-primary: #1a1a1a;
+    --text-secondary: #3f3f3f;
+    --accent: #3a5a40;
+    --accent-light: #a3b18a;
+    --glow-green: rgba(130, 160, 130, 0.35);
+    --glow-blue: rgba(130, 190, 255, 0.25);
+  }
+  
+  /* ---------- RESET ---------- */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text-primary);
+    background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+    background-size: 200% 200%;
+    animation: bgShift 35s ease-in-out infinite alternate;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    line-height: 1.6;
+    isolation: isolate;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+  }
+  
+  /* ===========================================================
+     🌫️ MULTI-LAYERED BACKGROUND EFFECTS
+     =========================================================== */
+  
+  /* Ambient glow and depth gradient */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background: radial-gradient(circle at 30% 40%, var(--glow-green), transparent 70%),
+                radial-gradient(circle at 70% 60%, var(--glow-blue), transparent 70%);
+    background-size: 200% 200%;
+    animation: lightDrift 25s ease-in-out infinite alternate;
+    filter: blur(140px) brightness(1.05);
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  
+  /* 3D texture & realism — stones, spheres, organic motion */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    pointer-events: none;
+    background-image:
+      url("https://cdn.jsdelivr.net/gh/creativetimofficial/public-assets/3d-sphere-green.png"),
+      url("https://cdn.jsdelivr.net/gh/creativetimofficial/public-assets/3d-sphere-blue.png"),
+      url("https://cdn.jsdelivr.net/gh/creativetimofficial/public-assets/3d-blobs.png");
+    background-repeat: no-repeat;
+    background-position: 20% 25%, 75% 50%, 50% 80%;
+    background-size: 260px, 240px, cover;
+    opacity: 0.15;
+    filter: brightness(1.2) blur(1.5px);
+    animation: floatShapes 45s ease-in-out infinite alternate;
+  }
+  
+  /* Subtle developer-style grid overlay for realism */
+  body::marker,
+  body::before::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    background: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    filter: blur(1px);
+    opacity: 0.1;
+  }
+  
+  /* ===========================================================
+     ⚙️ CORE STRUCTURE
+     =========================================================== */
+  .app {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    perspective: 1500px;
+  }
+  
+  section {
+    position: relative;
+    min-height: 100vh;
+    padding: 140px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    z-index: 1;
+  }
+  
+  .container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  /* ===========================================================
+     💎 CARDS
+     =========================================================== */
+  .card {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 32px;
+    backdrop-filter: blur(20px);
+    transition: all 0.4s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transform-style: preserve-3d;
+  }
+  
+  .card:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12),
+                0 0 40px rgba(150, 200, 150, 0.1);
+  }
+  
+  /* ===========================================================
+     🧭 BUTTONS
+     =========================================================== */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  .btn-primary:hover {
+    background: var(--accent-light);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* ===========================================================
+     ✨ 3D BACKGROUND CANVAS
+     =========================================================== */
+  .three-background canvas {
+    filter: brightness(1.05) saturate(1.2);
+    transition: opacity 0.8s ease;
+    will-change: transform;
+    transform: translateZ(-200px);
+  }
+  
+  /* ===========================================================
+     🧭 MOUSE PARALLAX INTERACTION
+     =========================================================== */
+  body.parallax-enabled {
+    transform: perspective(1000px);
+  }
+  body.parallax-enabled .three-background canvas {
+    transform: translateZ(-200px);
+  }
+  
+  body.parallax-x-left {
+    transform: rotateY(0.6deg) translateX(-5px);
+  }
+  body.parallax-x-right {
+    transform: rotateY(-0.6deg) translateX(5px);
+  }
+  body.parallax-y-up {
+    transform: rotateX(0.6deg) translateY(-5px);
+  }
+  body.parallax-y-down {
+    transform: rotateX(-0.6deg) translateY(5px);
+  }
+  
+  /* ===========================================================
+     🎥 ANIMATIONS
+     =========================================================== */
+  @keyframes bgShift {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 50%; }
+  }
+  @keyframes lightDrift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  @keyframes floatShapes {
+    0% { background-position: 20% 25%, 75% 50%, 50% 80%; }
+    50% { background-position: 22% 28%, 73% 53%, 52% 77%; }
+    100% { background-position: 18% 22%, 78% 47%, 48% 83%; }
+  }
+  
+  /* ===========================================================
+     📱 RESPONSIVE
+     =========================================================== */
+  @media (max-width: 768px) {
+    section {
+      padding: 100px 24px;
+    }
+  
+    body::after {
+      background-size: 180px, 160px, cover;
+      opacity: 0.2;
+    }
+  }
+  

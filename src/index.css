@@ -1,0 +1,33 @@
+.about-section {
+  background: linear-gradient(to bottom, #000000 0%, #0a0015 100%);
+  color: var(--text-primary);
+  transition: all 1s ease;
+}
+
+.about-section.active {
+  background: radial-gradient(circle at 50% 20%, rgba(168,85,247,0.1), #000000 70%);
+}
+
+.skills-section {
+  background: linear-gradient(to bottom, #000, #0a0015);
+  color: var(--text-primary);
+  transition: all 0.8s ease;
+}
+.skills-section.active {
+  background: radial-gradient(circle at 50% 25%, rgba(168,85,247,0.15), #000 70%);
+}
+
+.experience-section {
+  background: linear-gradient(to bottom, #000000 0%, #0a0015 100%);
+  color: var(--text-primary);
+  transition: all 1s ease;
+}
+
+.experience-section.active {
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(168, 85, 247, 0.1),
+    #000000 70%
+  );
+}
+
